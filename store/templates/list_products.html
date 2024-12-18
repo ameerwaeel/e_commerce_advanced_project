@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block body %}
+<div>
+    {% comment %} {% include "parts/alerts.html" %}
+    </div>
+   <p> </p>
+   <p>  {{x.description}}</p> 
+   {% endcomment %}
+   <section class="product_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Our Products
+        </h2>
+      </div>  
+
+      <div class="row">
+        {% for product in products  %}
+
+        <div class="col-sm-6 col-lg-4">
+
+          <div class="box">
+            <div class="img-box">
+              <img src="{{product.image.url}}" alt="">
+              {% comment %} <a href="" class="add_cart_btn">
+                <span>
+                  Add To Cart
+                </span>
+              </a> {% endcomment %}
+            </div>
+            <div class="detail-box">
+              <h5>
+                {{product.name}}
+              </h5>
+              <div class="product_info">
+                <h5>
+                  <span>$</span>  {{product.price}}
+
+                </h5>
+{% if product.slug %}
+        <a href=" {% url 'store:products_detail' product.slug %}" class="add_cart_btn">View Details</a>
+{% else %}
+        <span>Slug not available</span>
+{% endif %}
+                <div class="star_container">
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+      {% comment %} <div class="btn_box">
+        <a href="" class="view_more-link">
+          View More
+        </a>
+
+      </div> {% endcomment %}
+
+    </div>
+  </section>
+
+
+{% endblock body %}

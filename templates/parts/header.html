@@ -1,0 +1,131 @@
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="header_top">
+        <div class="container-fluid">
+          <div class="top_nav_container">
+            <div class="contact_nav">
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call : +20 01015651362
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  Email : ameer.waeel99@gmail.com
+                </span>
+              </a>
+            </div>
+
+            <form class="search_form" method="get" action="{% url 'store:product_search' %}">
+              <input type="text" name="query" class="form-control" placeholder="Search here...">
+              <button type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+          </form>
+          
+
+
+            <div class="user_option_box">
+              <a href="{% url 'accounts:register'%}" class="account-link">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>
+                  My Account
+                </span>
+              </a>
+              <a href="{% url 'cart:cart_detail'%}" class="account-link">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <span>
+                  Cart
+                </span>
+                {% comment %} {% with total_items=cart|length %}
+                {% if total_items > 0 %}
+                    <small> 
+                        <a href="{% url 'cart:cart_detail'%}">
+                          items is ( {{ total_items }} )  
+                           {{ cart.get_total_price }} $
+                        </a>
+                    </small>
+                {% endif %}
+            {% endwith %}
+             {% endcomment %}
+             {% with total_items=cart|length %}
+    {% if total_items > 0 %}
+        <small>
+            <a href="{% url 'cart:cart_detail' %}">
+              Items : {{ total_items }}  |  
+                {% comment %} Total: {{ cart.get_total_price|default_if_none:"0.00" }} $ {% endcomment %}
+                $ {{ cart.get_total_price }} 
+
+            </a>
+        </small>
+    {% endif %}
+{% endwith %}
+
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="{% url 'store:home'%}">
+              <span>
+                E-commerce
+              </span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=""> </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'store:home'%}">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for x in categories  %}
+                          <a class="dropdown-item" href="{{x.get_category_url}}">{{x.name}}</a>
+                    {% endfor %}
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      {% comment %} {% for x in categories  %}
+                            <a class="dropdown-item" href="{% url 'store:category_detail' x.slug %}">{{x.name}}</a>
+                      {% endfor %} {% endcomment %}
+                    
+                  </div>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html"> About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'store:home'%}">Products</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="why.html">Why Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="testimonial.html">Testimonial</a>
+                </li>
+              
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <!-- end header section -->
+
