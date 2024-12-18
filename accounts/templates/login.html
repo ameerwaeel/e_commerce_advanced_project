@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block body %}</br>
+{% if request.GET.command == 'verfication' %}
+<div class="row justify-content-center">
+    <div class="alert alert-success">
+        <h4 class="alert alert-heading">well done</h4>
+
+<p>thank you for registeration with us, have send you averification email to you </p>
+    <hr>
+    <p class="mb-0">alread verifed?<a href="{% url 'accounts:login'%}">login</a></p>
+    </div>    </div>
+{% else %}
+
+<div>
+{% include "parts/alerts.html" %}
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+    <div class="col-md-6 "></br></br></br>
+        <h2 class="row justify-content-center">login</h2>
+<form action="{% url 'accounts:login' %}" method='POST'></br>
+    {% csrf_token %}
+
+<div class="form-group">
+    <label for="email">E-mail:</label>
+    <input type="email" name="email" class="form-control" placeholder="enter email">
+</div>  
+<div class="form-group">
+    <label for="password">Password:</label>
+
+    <input type="password" name="password" class="form-control" placeholder="enter password">
+</div>  
+
+
+<button type="submit" class="btn btn-primary">login</button>
+</form>
+<p>don't have an account?<a href="{% url 'accounts:register' %}">register</a></p></br></br></br>
+    </div>  
+  </div>
+</div>
+{% endif %}
+
+{% endblock body %}
+
+

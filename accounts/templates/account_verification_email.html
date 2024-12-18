@@ -1,0 +1,12 @@
+ {% autoescape off %}
+ 
+ hi{{user.first_name}}
+ welcome to you in my website
+ please, click on blue link in this message to confirm your registeration .
+ 
+ 
+ http://{{domain}}{% url 'accounts:activate' uidb64=uid token=token %}
+
+ if you think its not to you. please ignore this email.
+ 
+ {% endautoescape %} 

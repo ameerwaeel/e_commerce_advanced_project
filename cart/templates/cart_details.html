@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+    <!-- cart section -->
+    <section class="cart_section layout_padding">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    Shopping Cart
+                </h2><br><br>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="cart_items">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">remove</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart %}
+                                {% comment %} {% with product=item.product %} {% endcomment %}
+                              
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{item.product.image.url}}" alt="Product Name" class="img-fluid" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+                                            {{item.product.name}}
+                                        </div>
+                                    </td>
+                                    <td>${{item.product.price}}</td>
+                                    <td>
+                                        <form action="{% url 'cart:cart_add' item.product.slug  %}" method="POST">
+                                            {% csrf_token %}
+
+                                            {{item.update_quantity_form.quantity}}
+                                            {{item.update_quantity_form.override}}
+
+                                            <input type="submit" value="update" class="btn btn-warning"></form>
+                                    </td>
+                                    <td>${{item.total_price}}</td>
+                                    <td><form action="{% url 'cart:cart_remove' item.product.slug  %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="submit" value="remove" class="btn btn-danger"></form>
+                                    </td>
+                                </tr>
+                                <!-- Repeat for more items -->
+                                {% comment %} {% endwith %} {% endcomment %}
+                                {% endfor %}
+                            </tbody>
+                 
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart_summary">
+                        <h4>Cart Summary</h4>
+                        <ul>
+                            <li>Subtotal: <span>$300</span></li>
+                            <li>Tax: <span>$30</span></li>
+                            <li>Total: <span>${{cart.get_total_price}}</span></li>
+                        </ul>
+                        <form class="coupon_form mt-4">
+                            <label for="coupon_code">Coupon Code</label>
+                            <input type="text" id="coupon_code" class="form-control" placeholder="Enter your code">
+                            <button type="submit" class="btn btn-primary mt-2">Apply Coupon</button>
+                        </form>
+                        <a href="{% url 'orders:order_create' %}" class="btn btn-success mt-4 w-100"> Checkout </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end cart section -->
+
+{% endblock body %}
